@@ -57,6 +57,7 @@ class Quiz
     @qhash = Questions.shuffle
     @num = @qhash.length
     @input = 0
+    @answer_array = []
   end
 
   def ask
@@ -71,15 +72,33 @@ class Quiz
         end
       print "Answer: "
       @input = gets.chomp.to_i
+      @answer_array << @input
       correct?(@input, i)
       i += 1
       j = 0
     end
     puts "Your score is #{@score} out of #{@num}!"
+    display_results
   end
 
   def correct?(user_input, i)
-    @score += 1 if user_input == qhash[i][:answer].to_i
+    @score += 1 if user_input == @qhash[i][:answer].to_i
+    return (user_input == @qhash[i][:answer].to_i)
   end
 
+  def display_results
+    i = 0
+    puts ""
+    puts "Review.........."
+    while(i < @num) do
+      puts "Question #{(i+1)}: #{@qhash[i][:question]}"
+      puts "Correct Answer: #{@qhash[i][:answer].to_i}"
+      if(correct?(@answer_array[i], i))
+        puts "You answered it right!"
+      else
+        puts "You answered it wrong!"
+      end
+      i += 1
+    end
+  end
 end
