@@ -56,7 +56,7 @@ class Quiz
     @score = 0
     @qhash = Questions
     @num = @qhash.length
-    @answer = nil
+    @input = 0
   end
 
   def ask
@@ -70,17 +70,17 @@ class Quiz
           j += 1
         end
       print "Answer: "
-      @answer = gets.chomp.to_i
-      puts "YES" if correct?(@answer)
+      @input = gets.chomp.to_i
+      correct?(@input, i)
       i += 1
       j = 0
     end
   end
 
-  def correct?(index)
-    puts index
-    puts qhash[index][:answer].to_i
-    puts (index == qhash[index][:answer].to_i)
+  def correct?(user_input, i)
+    puts user_input
+    puts qhash[i][:answer].to_i
+    puts (user_input == qhash[i][:answer].to_i)
     index == qhash[index][:answer].to_i
   end
 
