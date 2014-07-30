@@ -54,7 +54,7 @@ class Quiz
 
   def initialize
     @score = 0
-    @qhash = Questions
+    @qhash = Questions.shuffle
     @num = @qhash.length
     @input = 0
   end
@@ -62,7 +62,7 @@ class Quiz
   def ask
     i = 0
     j = 0
-    while(i < num) do
+    while(i < @num) do
       puts "Question #{(i+1)}: #{@qhash[i][:question]}"
       puts "Choices: "
         while(j < @qhash[i][:choices].length) do
@@ -75,11 +75,11 @@ class Quiz
       i += 1
       j = 0
     end
+    puts "Your score is #{@score} out of #{@num}!"
   end
 
   def correct?(user_input, i)
-    user_input == qhash[i][:answer].to_i
-    @score += 1
+    @score += 1 if user_input == qhash[i][:answer].to_i
   end
 
 end
