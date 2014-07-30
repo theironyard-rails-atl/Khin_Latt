@@ -78,10 +78,8 @@ class Quiz
   end
 
   def correct?(user_input, i)
-    puts user_input
-    puts qhash[i][:answer].to_i
-    puts (user_input == qhash[i][:answer].to_i)
-    index == qhash[index][:answer].to_i
+    user_input == qhash[i][:answer].to_i
+    @score += 1
   end
 
 end
