@@ -1,14 +1,7 @@
-#---------- Running Script ----------
+#---------- Setting Questionnaires ----------
 Q = ["Rate Chipotle: ", "Rate Starbucks: ",
-  "Rate Atlanta: ", "Rate your happiness: "]
+  "Rate Atlanta: ", "Rate your happiness: ", "Good? "]
 puts "---Please rate each questionnaire on a scale of 1-5---"
-# survey = Survey.new(Q)
-# Q.each do
-#   survey.ask
-# end
-# survey.print_survey
-
-
 
 #---------- Class ----------
 class Survey
@@ -30,7 +23,6 @@ class Survey
 
   def let_user_rate
     @ratings << gets.chomp.to_i
-    puts "#{@ratings} - #{@ratings.length}"
   end
 
   def finished?
@@ -41,9 +33,6 @@ class Survey
     sum = 0.0
     @ratings.each {|a| sum += a}
     return (sum / @ratings.length.to_f)
-
-    # (@ratings.inject(0.0) { |sum, i|
-    #   sum + i }.to_f) / @ratings.length
   end
 
   def print_survey
@@ -52,3 +41,11 @@ class Survey
     puts "Average rating is #{average}."
   end
 end
+
+#---------- Running Script ----------
+survey = Survey.new(Q)
+Q.each do
+  survey.ask
+end
+puts "Survey is done; here are the results: "
+survey.print_survey
