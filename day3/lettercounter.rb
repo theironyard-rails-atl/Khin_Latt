@@ -13,7 +13,6 @@ def lettercounter(input)
       countinghash[letter] = 1
     end
   end
-  
   countinghash
 
   # while(i < num)
