@@ -2,21 +2,31 @@ def lettercounter(input)
   countinghash = Hash.new
   letterarray = input.downcase.chars
   num = letterarray.length
-  i = 0
-  count = 0
-  letter = ""
-  while(i < num)
-    letter = letterarray[i]
-    if(i == 0)
-      countinghash[letter] = count + 1
-    elsif(countinghash.has_key?(letter))
+  # i = 0
+  # count = 0
+  # letter = ""
+
+  letterarray.each do |letter|
+    if countinghash[letter]
       countinghash[letter] += 1
     else
-      countinghash[letter] = count + 1
+      countinghash[letter] = 1
     end
-    i += 1
   end
-  return countinghash
+  countinghash
+
+  # while(i < num)
+  #   letter = letterarray[i]
+  #   if(i == 0)
+  #     countinghash[letter] = count + 1
+  #   elsif(countinghash.has_key?(letter))
+  #     countinghash[letter] += 1
+  #   else
+  #     countinghash[letter] = count + 1
+  #   end
+  #   i += 1
+  # end
+  # return countinghash
 end
 
 
