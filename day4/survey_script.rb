@@ -25,7 +25,11 @@ describe "The Survey" do
   end
 
   it "prints out user's highest, lowest and average ratings" do
-
+    survey = Survey.new(Q)
+    4.times{ survey.ask }
+    assert_equal survey.ratings.max, 4
+    assert_equal survey.ratings.min, 1
+    assert_equal survey.average, 2.5
   end
 
 

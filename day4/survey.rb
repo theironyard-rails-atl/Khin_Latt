@@ -6,7 +6,7 @@ puts "---Please rate each questionnaire on a scale of 1-5---"
 # Q.each do
 #   survey.ask
 # end
-#
+# survey.print_survey
 
 
 
@@ -37,7 +37,18 @@ class Survey
     @num_asked == list.length
   end
 
-  def print_survey
+  def average
+    sum = 0.0
+    @ratings.each {|a| sum += a}
+    return (sum / @ratings.length.to_f)
 
+    # (@ratings.inject(0.0) { |sum, i|
+    #   sum + i }.to_f) / @ratings.length
+  end
+
+  def print_survey
+    puts "Max rating is #{@ratings.max},"
+    puts "Min rating is #{@ratings.min} and"
+    puts "Average rating is #{average}."
   end
 end
