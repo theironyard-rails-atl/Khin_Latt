@@ -20,15 +20,13 @@ describe "The Survey" do
     assert_equal survey.ratings.length, 0
     survey.ask
     assert_equal survey.ratings.length, 1
+    3.times{ survey.ask }
+    assert_equal survey.ratings.length, 4
   end
 
-  it "should store ratings in proper array"
+  it "prints out user's highest, lowest and average ratings" do
 
-  it "ask the user to rate"
-
-  it "check after survey is over"
-
-  it "prints out user's highest, lowest and average ratings"
+  end
 
 
 end
