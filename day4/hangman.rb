@@ -1,6 +1,6 @@
 class Hangman
   def initialize answer
-    @answer = answer
+    @answer = answer.downcase
     @guessed = []
     @misses_remaining = 6
   end
@@ -29,6 +29,7 @@ class Hangman
 
   # TODO: think about this
   def guess(letter)
+    letter = letter.downcase
     found = @answer.include?(letter)
 
     unless @guessed.include?(letter)

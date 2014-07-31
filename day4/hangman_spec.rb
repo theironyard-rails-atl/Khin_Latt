@@ -52,6 +52,10 @@ describe("The hangman game") do
     assert_equal game.board, "_a_a_a"
   end
 
-  it "is case insensitive"
+  it "is case insensitive" do
+    game = Hangman.new("banana")
+    game.guess("A")
+    assert_equal "_a_a_a", game.board
+  end
 
 end
