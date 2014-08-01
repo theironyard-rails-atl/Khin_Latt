@@ -107,13 +107,11 @@ class Hand
     card_strings = []
     @inhand.each { |card| card_strings << card.to_s }
 
-    # card_strings = @inhand.map { |card| card.to_s }
+    # card_strings = @inhand.map { |card| card.to_s } # ******
 
-    card_strings.join(", ")
+    card_strings.join(", ") # ******
   end
 end
-
-
 
 class Person
   attr_accessor :wallet
@@ -127,7 +125,54 @@ class Person
 end
 
 #--------- Running Script ----------
-# player = Person.new(100)
+if __FILE__ == $PROGRAM_NAME #this loop is so that you don't comment it out when you run spec
+  puts "Let's play blackjack!"
+  player = Person.new(100)
+  stop = 0
+  while((player.wallet > 0) && (stop != 1)) do
+    hit = 0
+    stay = 0
+
+    dealer_hand = Hand.new
+    my_hand = Hand.new
+    deck = Deck.new
+
+    dealer_hand.add(deck.draw)
+    my_hand.add(deck.draw)
+    dealer_hand.add(deck.draw)
+    my_hand.add(deck.draw)
+
+    print "Dealer's hand: "
+    puts dealer_hand.to_s
+
+    puts dealer_hand.value
+
+    print "My hand: "
+    puts my_hand.to_s
+    puts my_hand.value
+
+
+    puts "Cards left in the deck: #{deck.cards.count}"
+    require "pry"
+    binding.pry
+
+
+
+
+
+
+
+
+
+
+
+
+
+  print "Enter 1 to stop: "
+  stop = gets.chomp.to_i
+  end
+  puts "DONE!"
+end
 # deck = Deck.new
 # drawn_card = deck.draw
 # puts "#{drawn_card.value} #{drawn_card.suit}"
