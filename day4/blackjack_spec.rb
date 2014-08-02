@@ -18,7 +18,7 @@ describe Card do
 
   it "knows the value of an ace" do
     card = Card.new(:A, :D)
-    assert_equal card.value, 1
+    assert_equal card.value, 11
   end
 end
 
@@ -70,6 +70,17 @@ describe Hand do
     assert_equal @hand.value, 16
   end
 
+  it "handles multiple aces" do
+    @hand.add(Card.new(:A, :H), Card.new(5, :S))
+    assert_equal @hand.value, 16
+    @hand.add(Card.new(10, :D))
+    assert_equal @hand.value, 16
+    @hand.add(Card.new(:A, :D))
+    assert_equal @hand.value, 17
+    @hand.add(Card.new(2, :H), Card.new(:A, :C))
+    assert_equal @hand.value, 20
+  end
+
   it "can bust" do
     @hand.add(Card.new(6, :H), Card.new(:K, :S), Card.new(6, :H))
     assert @hand.busted?
@@ -86,3 +97,10 @@ describe Hand do
     assert_equal @hand.to_s, 'AH, KS, 5S'
   end
 end
+
+# describe Person do
+#   it "knows when there is no more money" do
+#     player = Person.new(100)
+#
+#   end
+# end

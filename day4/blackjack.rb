@@ -16,7 +16,7 @@ class Card
     when :K, :Q, :J
       10
     when :A
-      1
+      11
     end
   end
 
@@ -74,22 +74,56 @@ class Hand
   def add(*args)
     args.each do |card|
       @inhand << card
-      if(card.ace == :A) #fix this to take from Deck
-        @num_draw += 1
+      if(card.ace == :A)
         @ace_array << card.ace
         @num_ace += 1
-        @value = @value + card.value + 10
-      else
-        @num_draw += 1
-        @value += card.value
       end
+      @value += card.value
+      @num_draw += 1
       check_sum_ace
     end
   end
 
   def check_sum_ace
-    if((@value > 21) && (@num_ace >= 1))
-      @value -= 10
+    subtract = @num_ace
+    if(@num_ace==1)
+      if(@value > 21 && subtract == 1)
+        @value -= 10
+        subtract -= 1
+      end
+    elsif(@num_ace==2)
+      if(@value > 21 && subtract == 2)
+        @value -= 10
+        subtract -= 1
+      elsif(@value > 21 && subtract ==1)
+        @value -= 10
+        subtract -= 1
+      end
+    elsif(@num_ace==3)
+      if(@value > 21 && subtract == 3)
+        @value -= 10
+        subtract -= 1
+      elsif(@value > 21 && subtract ==2)
+        @value -= 10
+        subtract -= 1
+      elsif(@value > 21 && subtract ==1)
+          @value -= 10
+          subtract -= 1
+      end
+    elsif(@num_ace==4)
+      if(@value > 21 && subtract == 4)
+        @value -= 10
+        subtract -= 1
+      elsif(@value > 21 && subtract ==3)
+        @value -= 10
+        subtract -= 1
+      elsif(@value > 21 && subtract ==2)
+          @value -= 10
+          subtract -= 1
+      elsif(@value > 21 && subtract ==1)
+          @value -= 10
+          subtract -= 1
+      end
     end
   end
 
@@ -129,50 +163,101 @@ if __FILE__ == $PROGRAM_NAME #this loop is so that you don't comment it out when
   puts "Let's play blackjack!"
   player = Person.new(100)
   stop = 0
-  while((player.wallet > 0) && (stop != 1)) do
-    hit = 0
-    stay = 0
 
+  while((player.wallet > 0) && (stop != 1)) do
+    hitorstay = 0
     dealer_hand = Hand.new
     my_hand = Hand.new
     deck = Deck.new
+    roundend = false
 
+    print "What amount would you like to bet on? "
+    bet = gets.chomp.to_i
+
+    while(bet > player.wallet)
+      print "Only bet within your budget please: "
+      bet = gets.chomp.to_i
+    end
+
+    #Five cards Charlie rule not included in this game
     dealer_hand.add(deck.draw)
     my_hand.add(deck.draw)
     dealer_hand.add(deck.draw)
     my_hand.add(deck.draw)
+    dealer_hand.add(deck.draw) until(dealer_hand.value >= 16)
 
-    print "Dealer's hand: "
-    puts dealer_hand.to_s
+    # ASK JAMES!!!
+    # def printout
+    #   puts "Dealer's hand: #{dealer_hand.to_s}"
+    #   puts "Your hand: #{my_hand.to_s}"
+    #   puts "Cards left in the deck: #{deck.cards.length}"
+    # end
 
-    puts dealer_hand.value
+    if(dealer_hand.busted?)
+      puts "Dealer is busted!"
+      puts "Dealer's hand: #{dealer_hand.to_s}"
+      puts "Your hand: #{my_hand.to_s}"
+      roundend = true
+      player.wallet += bet
+      #puts "Cards left in the deck: #{deck.cards.length}"
+    elsif(dealer_hand.blackjack?)
+      puts "BlackJack! Dealer won!"
+      puts "Dealer's hand: #{dealer_hand.to_s}"
+      puts "Your hand: #{my_hand.to_s}"
+      roundend = true
+      player.wallet -= bet
+      #puts "Cards left in the deck: #{deck.cards.length}"
+    elsif(my_hand.blackjack?)
+      puts "BlackJack! You won!"
+      puts "Dealer's hand: #{dealer_hand.to_s}"
+      puts "Your hand: #{my_hand.to_s}"
+      roundend = true
+      player.wallet += bet
+      #puts "Cards left in the deck: #{deck.cards.length}"
+    else
+      puts "Dealer's hand: #{dealer_hand.to_s}"
+      puts "Your hand: #{my_hand.to_s}"
+      while((my_hand.value <= 21) && (!roundend))
+        #puts "Cards left in the deck: #{deck.cards.length}"
+        print "Hit (Press 1) or Stay (Press 2): "
+        hitorstay = gets.chomp.to_i
+        if(hitorstay == 1)
+          my_hand.add(deck.draw)
+          puts "Your hand: #{my_hand.to_s}"
+          if(my_hand.busted?)
+            puts "Busted! You lose!"
+            roundend = true
+            player.wallet -= bet
+          end
+        elsif(hitorstay == 2)
+          if(my_hand.value == dealer_hand.value)
+            puts "Tie!"
+          elsif(my_hand.value > dealer_hand.value)
+            puts "You won!"
+            player.wallet += bet
+          else
+            puts "You lose!"
+            player.wallet -= bet
+          end
+          roundend = true
+        end
+      end
+    end
 
-    print "My hand: "
-    puts my_hand.to_s
-    puts my_hand.value
+    puts "Your wallet: #{player.wallet}"
 
-
-    puts "Cards left in the deck: #{deck.cards.count}"
-    require "pry"
-    binding.pry
+    # require "pry"
+    # binding.pry
 
 
 
+  if(player.wallet <= 0)
+    puts "No more money. Thanks for playing. Play again next time!"
+    break
+  end
 
-
-
-
-
-
-
-
-
-
-  print "Enter 1 to stop: "
+  print "Enter 1 to leave game; any key to continue: "
   stop = gets.chomp.to_i
   end
   puts "DONE!"
 end
-# deck = Deck.new
-# drawn_card = deck.draw
-# puts "#{drawn_card.value} #{drawn_card.suit}"
