@@ -25,10 +25,7 @@ class Card
   end
 end
 
-
-
 class Deck
-
   attr_reader :cards, :drawn
 
   def initialize
@@ -57,73 +54,36 @@ class Deck
     @drawn << x
     return x
   end
-
 end
-
 
 class Hand
   attr_reader :value
   def initialize
     @value = 0
-    @ace_array = []
     @num_ace = 0
     @num_draw = 0
     @inhand = []
+    @current_ace = false
   end
 
   def add(*args)
     args.each do |card|
       @inhand << card
       if(card.ace == :A)
-        @ace_array << card.ace
+        @current_ace = true
         @num_ace += 1
       end
       @value += card.value
       @num_draw += 1
       check_sum_ace
+      @current_ace = false
     end
   end
 
   def check_sum_ace
-    subtract = @num_ace
-    if(@num_ace==1)
-      if(@value > 21 && subtract == 1)
-        @value -= 10
-        subtract -= 1
-      end
-    elsif(@num_ace==2)
-      if(@value > 21 && subtract == 2)
-        @value -= 10
-        subtract -= 1
-      elsif(@value > 21 && subtract ==1)
-        @value -= 10
-        subtract -= 1
-      end
-    elsif(@num_ace==3)
-      if(@value > 21 && subtract == 3)
-        @value -= 10
-        subtract -= 1
-      elsif(@value > 21 && subtract ==2)
-        @value -= 10
-        subtract -= 1
-      elsif(@value > 21 && subtract ==1)
-          @value -= 10
-          subtract -= 1
-      end
-    elsif(@num_ace==4)
-      if(@value > 21 && subtract == 4)
-        @value -= 10
-        subtract -= 1
-      elsif(@value > 21 && subtract ==3)
-        @value -= 10
-        subtract -= 1
-      elsif(@value > 21 && subtract ==2)
-          @value -= 10
-          subtract -= 1
-      elsif(@value > 21 && subtract ==1)
-          @value -= 10
-          subtract -= 1
-      end
+    while @value > 21 && @num_ace > 0
+      @value -= 10
+      @num_ace -= 1
     end
   end
 
@@ -245,11 +205,6 @@ if __FILE__ == $PROGRAM_NAME #this loop is so that you don't comment it out when
     end
 
     puts "Your wallet: #{player.wallet}"
-
-    # require "pry"
-    # binding.pry
-
-
 
   if(player.wallet <= 0)
     puts "No more money. Thanks for playing. Play again next time!"

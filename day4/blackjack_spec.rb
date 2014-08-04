@@ -71,14 +71,14 @@ describe Hand do
   end
 
   it "handles multiple aces" do
-    @hand.add(Card.new(:A, :H), Card.new(5, :S))
-    assert_equal @hand.value, 16
-    @hand.add(Card.new(10, :D))
-    assert_equal @hand.value, 16
+    @hand.add(Card.new(5, :C), Card.new(7, :D))
+    assert_equal @hand.value, 12
+    @hand.add(Card.new(:A, :S))
+    assert_equal @hand.value, 13
+    @hand.add(Card.new(9, :D))
+    assert_equal @hand.value, 22
     @hand.add(Card.new(:A, :D))
-    assert_equal @hand.value, 17
-    @hand.add(Card.new(2, :H), Card.new(:A, :C))
-    assert_equal @hand.value, 20
+    assert_equal @hand.value, 23
   end
 
   it "can bust" do
