@@ -12,10 +12,10 @@ min = data.min_by{|hash| hash[:price]}
 puts "#{min[:name]} at $ #{min[:price]}\n\n"
 
 print "Total revenue: "
-puts "$ #{data.reduce(0){|x, hash| x + hash[:price]}.round(2)}\n\n"
+puts "$ #{data.reduce(0){|x, hash| (x + (hash[:price] * hash[:sold])).round(2)}}\n\n"
 
 print "Total profit: "
-puts "$ #{((data.reduce(0){|x, hash| x + hash[:price]})-(data.reduce(0){|x, hash| x + hash[:cost_to_make]})).round(2)}\n\n"
+puts "$ #{(data.reduce(0){|x, hash| x + (hash[:price] - hash[:cost_to_make]) * hash[:sold]}).round(2)}\n\n"
 
 puts "Top ten best selling widgets: "
 best_selling_widgets = data.sort_by{|hash| hash[:sold]}
