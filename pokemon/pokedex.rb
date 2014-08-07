@@ -1,23 +1,23 @@
 require "./squirtle.rb"
 require "./charmander.rb"
+require "./bulbasaur.rb"
+require "./pikachu.rb"
 
 class Pokedex
-  attr_accessor :pokedex
+  attr_reader :pokedex
 
   def initialize
     @pokedex = []
-    register
   end
 
   def to_s
     @pokedex.map do |x|
       x.class.to_s
-    end.to_s
+    end.join("  ")
   end
 
-  def register
-    @pokedex << Squirtle.new
-    @pokedex << Charmander.new
+  def register pokemon
+    @pokedex << pokemon
   end
 
   def find_pokemon(name)

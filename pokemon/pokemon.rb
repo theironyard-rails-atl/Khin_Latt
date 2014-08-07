@@ -1,7 +1,7 @@
 # reference: http://pokemondb.net/pokedex/bulbasaur
 
 class Pokemon
-  attr_accessor :moves, :exp, :level
+  attr_accessor :moves, :exp, :level, :print_name
   #include Combat
   def initialize
     @moves = Hash.new
@@ -10,4 +10,7 @@ class Pokemon
     @type = :normal
   end
 
+  def print_name
+    self.class.to_s
+  end
 end
