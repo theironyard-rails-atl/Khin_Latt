@@ -12,7 +12,7 @@ class Squirtle < Pokemon
     @hp = @max_hp
     @attack = 48
     @defense = 65
-    @moves = [Tackle: 35, Tail_Whip: 1]
+    @moves = {Tackle: 35, Tail_Whip: 1}
     @type = :water
   end
 

@@ -12,7 +12,7 @@ class Pikachu < Pokemon
     @hp = @max_hp
     @attack = 55
     @defense = 30
-    @moves = [Thunder_shock: 40, Tail_Whip: 1]
+    @moves = {Thunder_shock: 40, Tail_Whip: 1}
     @type = :electric
   end
 

@@ -12,7 +12,7 @@ class Bulbasaur < Pokemon
     @hp = @max_hp
     @attack = 49
     @defense = 49
-    @moves = [Tackle: 35, Tail_Whip: 1]
+    @moves = {Tackle: 35, Tail_Whip: 1}
     @type = :grass
   end
 
