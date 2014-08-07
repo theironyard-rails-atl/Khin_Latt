@@ -42,8 +42,8 @@ def play
     puts "\n A wild #{enemy.class} appears!\n\n"
 
     while(pokemon1.alive? && enemy.alive?)
-      pokemon1.battle(enemy)
-      enemy.battle(pokemon1)
+      pokemon1.battle(enemy) if(pokemon1.alive?)
+      enemy.battle(pokemon1, 1) if(enemy.alive?)
     end
 
     if(!pokemon1.alive?)
@@ -54,8 +54,6 @@ def play
     go = gets.chomp.to_i
   end
 end
-
-
 
 play
 # require "pry"
