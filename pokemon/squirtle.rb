@@ -4,6 +4,7 @@ require "./combat.rb"
 class Squirtle < Pokemon
   include Combat
   attr_accessor :hp, :attack, :defense, :max_hp
+  attr_reader :type
 
   def initialize
     super

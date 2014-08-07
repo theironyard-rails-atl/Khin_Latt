@@ -12,8 +12,8 @@ class Pokedex
 
   def to_s
     @pokedex.map do |x|
-      x.class.to_s
-    end.join("  ")
+      x.class.to_s + " [Type: #{x.type}]"
+    end.join("   ")
   end
 
   def register pokemon

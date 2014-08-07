@@ -2,6 +2,7 @@
 
 class Pokemon
   attr_accessor :moves, :exp, :level, :print_name
+  attr_reader :type
   #include Combat
   def initialize
     @moves = Hash.new

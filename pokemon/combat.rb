@@ -1,9 +1,9 @@
 module Combat
   WEAKNESS = [:grass => :fire, :fire => :water, :water => :electric, :electric => :ground, :ground => [:water, :grass]]
-  require "pry"
-  binding.pry
+  # require "pry"
+  # binding.pry
   def battle(other, ai=0)
-    if(ai = 0)
+    if(ai = 0) # user attacks
       bonus = 2
       other.hp -= ((((((2*self.level/5+2)*self.attack)/other.defense)/50)+2)*bonus*rand(217..255))/255
       #puts "#{self.class}'s health: #{self.hp_left}"
@@ -11,7 +11,7 @@ module Combat
       if((other.alive? == false) || (self.alive? == false))
         gameover(other)
       end
-    else #code for AI attacks
+    else # AI attacks
 
     end
   end
