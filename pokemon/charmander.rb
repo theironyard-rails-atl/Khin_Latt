@@ -11,7 +11,8 @@ class Charmander < Pokemon
     @hp = @max_hp
     @attack = 52
     @defense = 43
-    @moves = ["Growl", "Scratch"]
+    @moves = [Growl: 1, Scratch: 40]
+    @type = :fire
   end
 
 

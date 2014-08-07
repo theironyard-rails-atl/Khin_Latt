@@ -8,8 +8,8 @@ require "./squirtle.rb"
 describe "combat" do
   def setup
     @charmander = Charmander.new
+    @squirtle = Squirtle.new
   end
-  include Combat
 
   it "restore hp if go to pokecenter" do
     @charmander.hp = 1
@@ -22,6 +22,22 @@ describe "combat" do
     assert @charmander.alive?
     @charmander.hp = 0
     assert_equal false, @charmander.alive?
+  end
+
+  it "does damage to other pokemon when attacked and return hp" do
+    @charmander.battle(@squirtle)
+    @squirtle.battle(@charmander)
+    13.times {@charmander.battle(@squirtle)}
+    assert @squirtle.alive?
+    @charmander.battle(@squirtle)
+    assert !@squirtle.alive?
+    # note: this method will give errors if stats are changed
+  end
+
+  it "does damage to my pokemon and go to pokecenter when it faints" do
+    @charmander.hp = 0
+    @charmander.battle(@squirtle)
+    assert_equal @charmander.max_hp, @charmander.hp
   end
 end
 
