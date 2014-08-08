@@ -37,21 +37,31 @@ def play
 
   #---------- fight ----------
   #ai = Player.rb
+  def reset
+    @wild = Pokedex.new
+    @wild.register(Squirtle.new)
+    @wild.register(Charmander.new)
+    @wild.register(Bulbasaur.new)
+    @wild.register(Pikachu.new)
+  end
+
   while(go == 1)
-    enemy = oak_pokedex.pokedex.sample
+    reset
+    # require "pry"
+    # binding.pry
+    enemy = @wild.pokedex.sample #oak_pokedex.pokedex.sample
     puts "\n A wild #{enemy.class} appears!\n\n"
 
     while(pokemon1.alive? && enemy.alive?)
       pokemon1.battle(enemy) if(pokemon1.alive?)
-      enemy.battle(pokemon1, 1) if(enemy.alive?)
+      enemy.battle(pokemon1, true) if(enemy.alive?)
     end
 
-    if(!pokemon1.alive?)
-      pokemon1.start_over
-    end
+    pokemon1.start_over if(!pokemon1.alive?)
 
-    print "Press 1 for next battle; Press any key to leave"
+    print "Press 1 to explore; Press any key to leave > "
     go = gets.chomp.to_i
+    # should reset player's pokemon health here **********
   end
 end
 
