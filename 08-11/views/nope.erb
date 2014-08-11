@@ -1,0 +1,16 @@
+<!-- Available: instance variables set in the route (@var), locals passed in via
+  :locals (status), and methods on this object (???)-->
+
+<html>
+  <head>
+  </head>
+
+  <body>
+
+
+      <h1><%= status %></h1>
+      <p><%= @var %></p>
+      <p>Request is a: <%= request.class %></p>
+      <!-- <%- binding.pry %> -->
+  </body>
+</html>

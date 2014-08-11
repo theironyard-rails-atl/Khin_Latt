@@ -1,0 +1,24 @@
+%html
+  %head
+    %link{:href=>"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", :rel=>"stylesheet"}
+
+  %body
+    %p= "Paras is #{params}"
+
+    .container
+      %table.table.table-striped.table-condensed.table-hover
+        %thead
+          %tr
+            %th *
+            / notice the -
+            / - evaluates but does not print
+            / - evaluates and interpolates
+            / do not need an end because HAML
+            - @min.upto(@max) do |num|
+              %th= num
+        %tbody
+          - @min.upto(@max) do |num|
+            %tr
+              %th= num
+              - @min.upto(@max) do |other_num|
+                %td= num * other_num

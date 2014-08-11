@@ -1,0 +1,35 @@
+%html
+  %head
+    %link{:href=>"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", :rel=>"stylesheet"}
+  %body
+    .navbar.navbar-default.navbar-static-top
+      %h1.text-center The Guessing Game
+    .container
+      .col-md-8
+        %h2.text-left Can you guess the Secret number?
+        %h3.text-left Hint: it is between 0 - 100
+        %h2.text-left= "You have #{@max_try} chances."
+        - if @input
+          %h2.text-left= "Tries left: #{@max_try - @try}"
+          %h2.text-left= "You guessed: #{@input}"
+
+        - if @higher
+          %h2.text-left= "Go higher! Try again"
+        - elsif @lower
+          %h2.text-left= "Go lower! Try again"
+
+        - if @won
+          %h2.text-left= "You won!"
+          %h3.text-left= "You got it in #{@try} tries. Better luck next time!"
+        - elsif @lose
+          %h2.text-left= "You lost!"
+          %h3.text-lfet= "The secret number is #{@com}"
+
+        -if @won || @lose
+          %a.btn.btn-default{:href => "/"} Startover
+
+      .col-md-4
+        %h2.text-left Make a guess:
+        %p.text-left (Only enter integers from 0 to 100)
+        %form{:method => "POST"}
+          %input{:name => "text", :placeholder => "Enter here"}

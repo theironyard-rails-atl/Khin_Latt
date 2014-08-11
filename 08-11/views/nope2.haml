@@ -1,0 +1,13 @@
+%html
+  %head
+    - # <link href="..." rel="...">
+    - # HAML specifies these with a Ruby hash
+    %link{:href=>"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", :rel=>"stylesheet"}
+
+  %body
+    - # This will be a div wi/ class container
+    / you can use / for comments as well
+    .container
+      - # = replaces .erb's <%= to run ruby code
+      .jumbotron
+        %h1#main= status
