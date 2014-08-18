@@ -1,0 +1,18 @@
+/ app/views/tips/index.html.haml
+%h1 Listing tips, in HAML
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th{ colspan: "3" }
+
+  %tbody
+    - @tips.each do |tip|
+      %tr
+        %td= tip.id
+        %td= tip.content
+        %td= link_to 'Show', tip
+        %td= link_to 'Edit', edit_tip_path(tip)
+        %td= link_to 'Destroy', tip, method: :delete, data: { confirm: 'Are you sure?' }
+
+= link_to 'New Tip', new_tip_path

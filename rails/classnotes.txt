@@ -1,0 +1,43 @@
+rails new tips
+
+Use command+P for searching in Atom
+
+
+rails generate model Tip content:text
+rake db:migrate
+
+
+Asides,
+rake routes # will show you the routes
+rails console
+
+# server should work now
+# anything in app folder will reload server automatically
+
+t = Tip
+t.content = "..."
+t.save! # database thing
+
+
+gem 'haml-rails'
+gem 'pry-rails', group: :development
+
+#after adding gem files,
+#do
+
+bundle install
+
+git add -A #add everything including deletions
+
+# in tip.rb, declare you want input
+class Tip < ActiveRecord::Base
+  validates :content, length: { in: 6..255 }
+end
+
+
+
+rails generate model User content:text
+rake db:migrate
+rails g migration AddUserIdToTips user_id:integer
+
+reload!

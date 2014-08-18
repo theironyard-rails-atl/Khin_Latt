@@ -1,0 +1,27 @@
+%pre.text-center.h1= @game.board
+
+%h3.text-center Status
+
+%h4.text-center
+  = "#{@game.misses} / #{@game.max_misses} misses"
+
+%h3.text-center Guessed
+%h4.text-center
+  = @game.guessed
+  %br
+%h4.text-center
+  = form_tag(game_path(@game), method: "patch") do
+    = text_field_tag "letter"
+    = submit_tag "Guess"
+
+.container.text-center
+  - if @game.finished?
+    %h3 Game Over
+    - if @game.won?
+      %h3 You won
+
+    - if @game.lost?
+      %h3 You lost
+
+  = form_tag(games_path(@game), method: "get") do
+    %button.btn.btn-danger Back

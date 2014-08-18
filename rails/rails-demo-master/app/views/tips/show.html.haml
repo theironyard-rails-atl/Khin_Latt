@@ -1,0 +1,9 @@
+%p#notice= notice
+
+/ <pre><%= @tip.content %></pre>
+%pre
+  = @tip.content
+
+= link_to 'Edit', edit_tip_path(@tip)
+|
+= link_to 'Back', tips_path

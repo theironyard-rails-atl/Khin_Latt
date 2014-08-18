@@ -1,0 +1,26 @@
+<%= form_for(@tip) do |f| %>
+  <% if @tip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tip.errors.count, "error") %> prohibited this tip from being saved:</h2>
+
+      <ul>
+      <% @tip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <label>
+    Content
+    <%= f.text_field :content %>
+  </label>
+
+  <!-- adds another key to tip hash in params
+  <input name="tip[manual]"/>
+  -->
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

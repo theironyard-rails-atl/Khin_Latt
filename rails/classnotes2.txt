@@ -1,0 +1,98 @@
+rails new hangme
+rake db:migrate
+rails g migration CreateGameTable
+-do rake db:migrate after setting up database in CreateGameTable class
+-create class Game under models
+rails console (or rails c)
+then in pry, can do $ g1 = Game.new; g1.save! (I don't think it is needed)
+-if a mistake is made with a database, we can do $ rake db:rollback; then rake db:migrate again
+-can also do $ rake db:drop to delete the entire table
+-rake $ db:setup will set up sqlite from schema.rb after hand-editing schema
+$ Game.create! is the same as Game.new.save!
+$ Game.find(1).delete #1 is an id
+-install annotate to show the variables in game.rb; then type in $ annotate
+$ rbenv rehash
+
+Let's proceed to validation in game.rb
+$ reload! after changing database
+
+GameController is where the routes should be defined
+
+-created games_controller.rb in which class GamesController < ApplicationController
+$ Game.where(answer: nil)
+$ Game.where(answer: nil).delete_all
+$ Game.where(guessed: nil).update_all(guessed: "")
+
+from 404 page, find paths for patch, ...
+
+-there are helpers for forms (e.g., =form_tag)
+
+rake routes
+
+redirect_to :new
+render :new
+
+-look at Tips to study
+
+
+new is the get
+create is the post
+
+%= form_for(@tip) takes you to create
+
+Users!!!
+
+$ rails g model User name:string email:string
+
+Game.update_all(user_id: 1)
+Game.where(user_id: nil).update_all(user_id: 2)
+User.find(1) # 1 is id
+
+*****
+in class Game < ActiveRecord::Base
+	belongs_to :user
+
+in class user < ActiveRecord::Base
+	has_many :games
+	
+
+g.user = dan
+
+In GamesController - index
+
+user = User.find(sessions[:selected_user])
+user = User.find(1) # will swap later by log in
+# @games = Game.where(user_id: user.id) # same as below
+@games = user.games
+
+Now how to get log in:
+
+Under routes.draw do
+get '/' => 'users#select' # same as root to: 'users#select'
+post '/change_user' => 'users#change'
+
+- create userscontroller.rb
+class UsersController < ApplicationController
+	def select
+		@users = User.all
+	end
+	
+	def change
+	# "Permanently" stores the selected user in the session
+	# For this user, for this browsing session
+	session[:selected_user] = params[:selected_user]
+	redirect_to games_path
+	end
+end
+
+create app/views/users/select.html.haml
+= form_tag(change_user_path, method: :post) do
+  %select{ name: :selected_user }
+  	 - @users.each do |user|
+  	   %option{ value: user.id }= user.name
+  %button Login
+ 
+- This is a helper to put in games controller; This is very common  
+def current_user
+  User.find session[:selected_user]
+end

@@ -1,0 +1,1 @@
+***** txt file needs to be placed in the main rails new folder!!!!
